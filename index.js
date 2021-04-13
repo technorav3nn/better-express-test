@@ -4,7 +4,7 @@ const fs = require('fs')
 const app = express();
   
 // Defining port number
-const PORT = 3000;                  
+const PORT = process.env.PORT                  
 
 // Function to serve all static files
 // inside public directory.
