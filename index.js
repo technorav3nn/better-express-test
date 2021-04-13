@@ -16,7 +16,7 @@ app.get('/', function(req, res){
   let random = Math.floor(Math.random() * 3)
   
   let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl + 'images/'+random+'.jpg'
-
+  //first commit
   console.log(fullUrl)
   res.send({ link: `${fullUrl}`
   });
