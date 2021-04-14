@@ -13,12 +13,14 @@ app.use('/images', express.static('images'));
   
 app.get('/', function(req, res){
   let dir1 = 'images'
-  let random = Math.floor(Math.random() * 3)
+  let random = Math.floor(Math.random() * 11)
+
+  if ( random == 0) random++
   
   let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl + 'images/'+random+'.jpg'
   //first commit
   console.log(fullUrl)
-  res.send({ link: `${fullUrl}`
+  res.send({ soggaImages: `${fullUrl}`
   });
 })  
 
