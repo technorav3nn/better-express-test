@@ -1,6 +1,6 @@
-const express = require('express')
-const fs = require('fs')
-
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const app = express();
   
 // Defining port number
@@ -20,9 +20,12 @@ app.get('/', function(req, res){
   console.log(fullUrl)
   res.send({ link: `${fullUrl}`
   });
-
-
 })  
+
+app.use(function (req,res,next){
+	res.status(404).sendFile(path.join(__dirname + '/index.html'))
+});
+
 // Server setup
 app.listen(PORT, () => {
   console.log(`Running server on PORT ${PORT}...`);
