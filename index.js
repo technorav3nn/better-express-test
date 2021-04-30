@@ -19,16 +19,19 @@ const limiter = rateLimit({
     JSON.stringify(reqobj)
 });
 
-// Create Express App
 const app = express();
-// Defining port number
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
+
 app.use(limiter);
+app.use(express.static('public'));app.use('/images', express.static('images'));
+
 app.set('json spaces', 2)
-// Function to serve all static files
-// inside public directory.
-app.use(express.static('public'));  
-app.use('/images', express.static('images'));
+const uploadFilter = function (req, file, cb) {
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+      return cb(new Error('Only image files are allowed! nuk if this is you my guy chill pls.................'));
+  }
+  cb(null, true);
+}
 
 
 const storage = multer.diskStorage({
@@ -37,16 +40,16 @@ const storage = multer.diskStorage({
      },
     filename: function (req, file, cb) {
         cb(null , file.originalname);
-    }
+    },
     
 });
 
 const upload = multer({
-  storage: storage
+  storage: storage,
+  fileFilter: uploadFilter
 })
-
 const uploadDir = fs.readdirSync(__dirname+'/public/images/upload')
-console.log(uploadDir)
+
 
 app.get('/upload', (req, res) => {
   const key = req.query.key
