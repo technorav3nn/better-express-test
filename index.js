@@ -20,7 +20,7 @@ const limiter = rateLimit({
 });
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(limiter);
 app.use(express.static('public'));app.use('/images', express.static('images'));
